@@ -1,0 +1,10 @@
+{
+  "description": "Navigate through an interactive mobile personality quiz with seamless button-driven screens designed to engage users and reveal insights step-by-step.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

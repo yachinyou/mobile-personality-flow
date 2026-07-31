@@ -4,12 +4,13 @@ import imgRectangle1 from "./803a4b3e0dc3e1b4424e59798b34f78c8987c361.png";
 import { subscribeToMailerLite } from "@/lib/mailerlite";
 
 function Frame6({ title }: { title: string }) {
-  const mainPart = title.slice(0, -1);
-  const lastChar = title.slice(-1);
+  const displayTitle = title === "The Moon" || title === "The Peaks" ? title.replace(" ", "\n") : title;
+  const mainPart = displayTitle.slice(0, -1);
+  const lastChar = displayTitle.slice(-1);
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col gap-[16px] items-center not-italic relative shrink-0 text-[#392c68] text-center w-full">
       <p className="font-['Poppins:Medium',sans-serif] leading-[normal] relative shrink-0 text-[16px] w-full">YOU ARE</p>
-      <p className="font-['Serafina:Regular',sans-serif] leading-[0] relative shrink-0 text-[0px] w-full">
+      <p className="font-['Serafina:Regular',sans-serif] leading-[0] relative shrink-0 text-[0px] w-full whitespace-pre-line">
         <span className="leading-[68px] text-[72px]">{mainPart}</span>
         <span className="font-['Serafina:Swash',sans-serif] leading-[68px] text-[72px]">{lastChar}</span>
       </p>

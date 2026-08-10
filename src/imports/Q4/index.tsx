@@ -2,17 +2,21 @@ import { useState } from "react";
 import svgPaths from "./svg-cb5w627u7f";
 import imgQ4 from "./cf1a9b09158389e5eac655a596f996e6e9051fc2.png";
 import imgFrame2 from "./01f8d9addedb8fca6b0f20172e243ab3e7ca9ff2.png";
-import imgEllipse1 from "./9d1d2bb5faf826e429cd2af9d491a6c41e790541.png";
+import imgOption1 from "./Q4-option1.svg";
+import imgOption2 from "./Q4-option2.svg";
+import imgOption3 from "./Q4-option3.svg";
+import imgOption4 from "./Q4-option4.svg";
+import imgOption5 from "./Q4-option5.svg";
 
 const options = [
-  "They think calm means simple",
-  "They think scattered means broken ",
-  "They think distant means cold",
-  "They think quiet means empty",
-  "They think intense means angry",
+  { text: "They think calm means simple", icon: imgOption1 },
+  { text: "They think scattered means broken ", icon: imgOption2 },
+  { text: "They think distant means cold", icon: imgOption3 },
+  { text: "They think quiet means empty", icon: imgOption4 },
+  { text: "They think intense means angry", icon: imgOption5 },
 ];
 
-function Option({ text, selected, onClick }: { text: string; selected: boolean; onClick: () => void }) {
+function Option({ text, icon, selected, onClick }: { text: string; icon: string; selected: boolean; onClick: () => void }) {
   return (
     <div onClick={onClick} className="relative rounded-[16px] shrink-0 w-full cursor-pointer">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-[16px]">
@@ -24,8 +28,8 @@ function Option({ text, selected, onClick }: { text: string; selected: boolean; 
       )}
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex gap-[22px] items-center p-[16px] relative size-full">
-          <div className="relative shrink-0 size-[64px]">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" height="64" src={imgEllipse1} width="64" />
+          <div className="relative shrink-0 size-[64px] rounded-full bg-[#eeeeee]">
+            <img alt="" className="absolute inset-0 m-auto max-w-[65%] max-h-[65%] object-contain" src={icon} />
           </div>
           <p className="[word-break:break-word] font-['Poppins:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#392c68] text-[15px] text-left w-[222px]">{text}</p>
         </div>
@@ -72,8 +76,8 @@ export default function Q({ onNext, onBack }: { onNext?: (index: number) => void
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Serafina:Regular',sans-serif] leading-[63px] left-[194.5px] not-italic text-[#392c68] text-[52px] text-center top-[63px] w-[341px]">Q4</p>
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[195px] not-italic text-[#392c68] text-[18px] text-center top-[141px] w-[302px]">What do people most often get wrong about you?</p>
       <div className="absolute content-stretch flex flex-col gap-[12px] items-start left-[25px] top-[239px] w-[340px]">
-        {options.map((text, i) => (
-          <Option key={i} text={text} selected={selected === i} onClick={() => handleSelect(i)} />
+        {options.map(({ text, icon }, i) => (
+          <Option key={i} text={text} icon={icon} selected={selected === i} onClick={() => handleSelect(i)} />
         ))}
       </div>
       <BackButton onClick={onBack} />

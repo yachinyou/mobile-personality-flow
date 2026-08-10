@@ -2,17 +2,21 @@ import { useState } from "react";
 import svgPaths from "./svg-1lvcntyi6t";
 import imgQ1 from "./cf1a9b09158389e5eac655a596f996e6e9051fc2.png";
 import imgFrame2 from "./01f8d9addedb8fca6b0f20172e243ab3e7ca9ff2.png";
-import imgEllipse1 from "./91ad18783542ba7ab3f47ff88c79596a47f62e6d.png";
+import imgFog from "./bc47f17a95c7b370af9c7e0ce3169b18e04a56cf.png";
+import imgOcean from "./91ad18783542ba7ab3f47ff88c79596a47f62e6d.png";
+import imgSunWater from "./d5c3444c5be1f000f8b6995a38f1c857a7f95e03.png";
+import imgLava from "./865904d7e2eed08e4c11d99b5d8d120cf6216427.png";
+import imgPlains from "./4e9775d54e608c8f5baafa586d90812cc4f7bd6d.png";
 
 const options = [
-  "Fog that hasn't decided anything yet",
-  "Cold, blue, and very clear ",
-  "Patches of sun moving across open water",
-  "Warm pressure somewhere under the ground",
-  "Thin, bright air, you can see very far",
+  { text: "Fog that hasn't decided anything yet", icon: imgFog },
+  { text: "Cold, blue, and very clear ", icon: imgOcean },
+  { text: "Patches of sun moving across open water", icon: imgSunWater },
+  { text: "Warm pressure somewhere under the ground", icon: imgLava },
+  { text: "Thin, bright air, you can see very far", icon: imgPlains },
 ];
 
-function Option({ text, selected, onClick }: { text: string; selected: boolean; onClick: () => void }) {
+function Option({ text, icon, selected, onClick }: { text: string; icon: string; selected: boolean; onClick: () => void }) {
   return (
     <div onClick={onClick} className="relative rounded-[16px] shrink-0 w-full cursor-pointer">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-[16px]">
@@ -25,7 +29,7 @@ function Option({ text, selected, onClick }: { text: string; selected: boolean; 
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex gap-[22px] items-center p-[16px] relative size-full">
           <div className="relative shrink-0 size-[64px]">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" height="64" src={imgEllipse1} width="64" />
+            <img alt="" className="absolute block inset-0 max-w-none size-full" height="64" src={icon} width="64" />
           </div>
           <p className="[word-break:break-word] font-['Poppins:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#392c68] text-[15px] text-left w-[222px]">{text}</p>
         </div>
@@ -65,8 +69,8 @@ export default function Q({ onNext }: { onNext?: (index: number) => void }) {
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Serafina:Regular',sans-serif] leading-[63px] left-[194.5px] not-italic text-[#392c68] text-[52px] text-center top-[63px] w-[341px]">Q1</p>
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[195px] not-italic text-[#392c68] text-[18px] text-center top-[141px] w-[302px]">{`It's early morning inside you. What's the weather?`}</p>
       <div className="absolute content-stretch flex flex-col gap-[12px] items-start left-[25px] top-[239px] w-[340px]">
-        {options.map((text, i) => (
-          <Option key={i} text={text} selected={selected === i} onClick={() => handleSelect(i)} />
+        {options.map(({ text, icon }, i) => (
+          <Option key={i} text={text} icon={icon} selected={selected === i} onClick={() => handleSelect(i)} />
         ))}
       </div>
       <Frame6 />

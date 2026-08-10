@@ -2,17 +2,21 @@ import { useState } from "react";
 import svgPaths from "./svg-ggosrjwr69";
 import imgQ2 from "./cf1a9b09158389e5eac655a596f996e6e9051fc2.png";
 import imgFrame2 from "./01f8d9addedb8fca6b0f20172e243ab3e7ca9ff2.png";
-import imgEllipse1 from "./9d1d2bb5faf826e429cd2af9d491a6c41e790541.png";
+import imgOption1 from "./Q2-option1.svg";
+import imgOption2 from "./Q2-option2.svg";
+import imgOption3 from "./Q2-option3.svg";
+import imgOption4 from "./Q2-option4.svg";
+import imgOption5 from "./Q2-option5.svg";
 
 const options = [
-  "Most of me is under the surface where nobody looks",
-  "Being many small pieces, each a little far from the others",
-  "Standing somewhere high that others don't climb",
-  "A quiet lake that nobody thinks to visit",
-  "Holding something hot that I can't say out loud",
+  { text: "Most of me is under the surface where nobody looks", icon: imgOption1 },
+  { text: "Being many small pieces, each a little far from the others", icon: imgOption2 },
+  { text: "Standing somewhere high that others don't climb", icon: imgOption3 },
+  { text: "A quiet lake that nobody thinks to visit", icon: imgOption4 },
+  { text: "Holding something hot that I can't say out loud", icon: imgOption5 },
 ];
 
-function Option({ text, selected, onClick }: { text: string; selected: boolean; onClick: () => void }) {
+function Option({ text, icon, selected, onClick }: { text: string; icon: string; selected: boolean; onClick: () => void }) {
   return (
     <div onClick={onClick} className="relative rounded-[16px] shrink-0 w-full cursor-pointer">
       <div aria-hidden className="absolute inset-0 pointer-events-none rounded-[16px]">
@@ -24,8 +28,8 @@ function Option({ text, selected, onClick }: { text: string; selected: boolean; 
       )}
       <div className="flex flex-row items-center size-full">
         <div className="content-stretch flex gap-[22px] items-center p-[16px] relative size-full">
-          <div className="relative shrink-0 size-[64px]">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" height="64" src={imgEllipse1} width="64" />
+          <div className="relative shrink-0 size-[64px] rounded-full bg-[#eeeeee]">
+            <img alt="" className="absolute inset-0 m-auto max-w-[65%] max-h-[65%] object-contain" src={icon} />
           </div>
           <p className="[word-break:break-word] font-['Poppins:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#392c68] text-[15px] text-left w-[222px]">{text}</p>
         </div>
@@ -72,8 +76,8 @@ export default function Q({ onNext, onBack }: { onNext?: (index: number) => void
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Serafina:Regular',sans-serif] leading-[63px] left-[194.5px] not-italic text-[#392c68] text-[52px] text-center top-[63px] w-[341px]">Q2</p>
       <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Poppins:Regular',sans-serif] leading-[normal] left-[195px] not-italic text-[#392c68] text-[18px] text-center top-[141px] w-[302px]">When loneliness visits, it feels most like...</p>
       <div className="absolute content-stretch flex flex-col gap-[12px] items-start left-[25px] top-[239px] w-[340px]">
-        {options.map((text, i) => (
-          <Option key={i} text={text} selected={selected === i} onClick={() => handleSelect(i)} />
+        {options.map(({ text, icon }, i) => (
+          <Option key={i} text={text} icon={icon} selected={selected === i} onClick={() => handleSelect(i)} />
         ))}
       </div>
       <BackButton onClick={onBack} />

@@ -6,6 +6,7 @@ import Q2 from "@/imports/Q2";
 import Q3 from "@/imports/Q3";
 import Q4 from "@/imports/Q4";
 import Q5 from "@/imports/Q5";
+import TransitionOverlay from "@/imports/Transition";
 import EmailGate from "@/imports/EmailGate";
 import ThankYouPage from "@/imports/ThankYouPage";
 import ReadingImageForSharing from "@/imports/ReadingImageForSharing";
@@ -23,20 +24,40 @@ type Screen =
   | "sharing"
   | "email";
 
+type OverlayVariant = "veil" | "calculating";
+
+const OVERLAY_TIMING: Record<OverlayVariant, { fadeIn: number; hold: number; fadeOut: number }> = {
+  veil: { fadeIn: 1100, hold: 500, fadeOut: 1400 },
+  calculating: { fadeIn: 1200, hold: 5000, fadeOut: 1500 },
+};
+const OVERLAY_EASING = "cubic-bezier(0.37, 0, 0.63, 1)";
+
 export default function App() {
   const [screen, setScreen] = useState<Screen>("igad");
   const [answers, setAnswers] = useState<number[]>([]);
+  const [overlayPhase, setOverlayPhase] = useState<"in" | "out" | null>(null);
+  const [overlayVariant, setOverlayVariant] = useState<OverlayVariant>("veil");
 
   const go = (s: Screen) => () => setScreen(s);
 
-  const answerAndGo = (questionIndex: number, next: Screen) => (optionIndex: number) => {
-    setAnswers((prev) => {
-      const updated = [...prev];
-      updated[questionIndex] = optionIndex;
-      return updated;
-    });
-    setScreen(next);
-  };
+  const answerAndGo =
+    (questionIndex: number, next: Screen, variant: OverlayVariant = "veil") =>
+    (optionIndex: number) => {
+      setAnswers((prev) => {
+        const updated = [...prev];
+        updated[questionIndex] = optionIndex;
+        return updated;
+      });
+
+      const { fadeIn, hold, fadeOut } = OVERLAY_TIMING[variant];
+      setOverlayVariant(variant);
+      setOverlayPhase("in");
+      setTimeout(() => {
+        setScreen(next);
+        setOverlayPhase("out");
+        setTimeout(() => setOverlayPhase(null), fadeOut);
+      }, fadeIn + hold);
+    };
 
   const archetypeKey = answers.length === 5 ? computeArchetype(answers) : undefined;
   const archetypeName = archetypeKey ? ARCHETYPE_NAMES[archetypeKey] : undefined;
@@ -63,6 +84,21 @@ export default function App() {
         }}
       >
         {children}
+        {overlayPhase && (
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              animation:
+                overlayPhase === "in"
+                  ? `${overlayVariant === "calculating" ? "overlay-fade-in-full" : "overlay-fade-in"} ${OVERLAY_TIMING[overlayVariant].fadeIn}ms ${OVERLAY_EASING} forwards`
+                  : `${overlayVariant === "calculating" ? "overlay-fade-out-full" : "overlay-fade-out"} ${OVERLAY_TIMING[overlayVariant].fadeOut}ms ${OVERLAY_EASING} forwards`,
+            }}
+          >
+            <TransitionOverlay label={overlayVariant === "calculating" ? "channeling..." : undefined} />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -110,7 +146,7 @@ export default function App() {
   if (screen === "q5") {
     return wrapScreen(
       <div style={{ position: "absolute", inset: 0 }}>
-        <Q5 onNext={answerAndGo(4, "emailgate")} onBack={go("q4")} />
+        <Q5 onNext={answerAndGo(4, "emailgate", "calculating")} onBack={go("q4")} />
       </div>
     );
   }

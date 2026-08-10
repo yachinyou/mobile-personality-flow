@@ -20,9 +20,12 @@ function Frame6({ title }: { title: string }) {
 
 function Frame5() {
   return (
-    <div className="[word-break:break-word] content-stretch flex flex-col gap-[8px] items-start leading-[normal] not-italic relative shrink-0 text-[#392c68] text-[18px] text-center w-[318px]">
-      <p className="font-['Poppins:Regular',sans-serif] relative shrink-0 w-full">Your full reading and your landscape art are ready.</p>
-      <p className="font-['Poppins:Medium',sans-serif] relative shrink-0 w-full">Where should I send it?</p>
+    <div className="[word-break:break-word] content-stretch flex flex-col gap-[16px] items-center leading-[normal] not-italic relative shrink-0 text-[#392c68] text-center w-[318px]">
+      <p className="font-['Poppins:Regular',sans-serif] relative shrink-0 text-[18px] w-full">Here is:</p>
+      <p className="font-['Poppins:SemiBold',sans-serif] relative shrink-0 text-[22px] w-full">
+        Your full reading &<br />Printable landscape art
+      </p>
+      <p className="font-['Poppins:Regular',sans-serif] relative shrink-0 text-[18px] w-full">Where should I send it?</p>
     </div>
   );
 }

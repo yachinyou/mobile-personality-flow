@@ -63,26 +63,8 @@ export default function App() {
   const archetypeName = archetypeKey ? ARCHETYPE_NAMES[archetypeKey] : undefined;
 
   const wrapScreen = (children: React.ReactNode) => (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "#f5f0eb",
-        overflow: "hidden",
-      }}
-    >
-      <div
-        style={{
-          position: "relative",
-          width: "390px",
-          height: "844px",
-          overflow: "hidden",
-          boxShadow: "0 8px 48px rgba(0,0,0,0.18)",
-        }}
-      >
+    <div className="app-viewport">
+      <div className="app-frame">
         {children}
         {overlayPhase && (
           <div

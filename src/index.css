@@ -59,9 +59,17 @@ html, body, #root {
   overflow: auto;
 }
 
+/* .app-frame is the REAL scroll viewport, sized to the actual device/browser
+   window in true device pixels — never scaled itself. .app-canvas inside it is
+   the fixed 390x844 design (all the Q1-Q5/etc screens are hand-positioned in
+   absolute pixels for that exact canvas). On mobile, .app-canvas is scaled via
+   `zoom` to exactly match the device's real width, so the whole design —
+   including its own built-in side padding — grows or shrinks proportionally to
+   fill any device width edge-to-edge with no dead margins and nothing
+   off-center. If the scaled canvas ends up taller than the real viewport,
+   .app-frame scrolls to reveal the rest. */
 .app-frame {
   position: relative;
-  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -70,7 +78,6 @@ html, body, #root {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  padding-bottom: 32px;
   flex-shrink: 0;
   /* Centers vertically within .app-viewport when there's extra room; collapses
      to 0 (falling back to normal top-aligned flow) when it overflows, which is
@@ -84,15 +91,28 @@ html, body, #root {
   display: none; /* Chrome/Safari/Edge — scroll stays functional, just not visible */
 }
 
-/* Below this width, treat the viewport as the real device screen and fill it
-   edge-to-edge. Above it, show a centered phone-sized mockup for desktop preview. */
+.app-canvas {
+  position: relative;
+  box-sizing: border-box;
+  width: 390px;
+  height: 844px;
+  padding-bottom: 32px;
+  zoom: calc(100vw / 390px);
+}
+
+/* Above this width, show the canvas at its native 1:1 size as a centered
+   phone-sized mockup for desktop preview, instead of scaling it up. */
 @media (min-width: 431px) {
   .app-frame {
     width: 390px;
     height: 844px;
-    padding-bottom: 0;
     overflow: hidden;
     box-shadow: 0 8px 48px rgba(0, 0, 0, 0.18);
+  }
+
+  .app-canvas {
+    zoom: 1;
+    padding-bottom: 0;
   }
 }
 

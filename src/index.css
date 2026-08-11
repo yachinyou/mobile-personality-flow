@@ -65,8 +65,9 @@ html, body, #root {
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
   width: 100%;
-  max-width: 390px;
   height: 100vh;
   height: 100dvh;
   padding-bottom: 32px;
@@ -79,10 +80,12 @@ html, body, #root {
   margin-bottom: auto;
 }
 
+.app-frame::-webkit-scrollbar {
+  display: none; /* Chrome/Safari/Edge — scroll stays functional, just not visible */
+}
+
 /* Below this width, treat the viewport as the real device screen and fill it
-   (capped at the 390px design width so it stays centered on wider phones
-   instead of skewing left). Above it, show a centered phone-sized mockup
-   for desktop preview. */
+   edge-to-edge. Above it, show a centered phone-sized mockup for desktop preview. */
 @media (min-width: 431px) {
   .app-frame {
     width: 390px;

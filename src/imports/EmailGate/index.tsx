@@ -2,6 +2,7 @@ import { useState } from "react";
 import imgEmailGate from "./cf1a9b09158389e5eac655a596f996e6e9051fc2.png";
 import imgRectangle1 from "./803a4b3e0dc3e1b4424e59798b34f78c8987c361.png";
 import { subscribeToMailerLite } from "@/lib/mailerlite";
+import { trackLead } from "@/lib/metaPixel";
 
 function Frame6({ title }: { title: string }) {
   const displayTitle = title === "The Moon" || title === "The Peaks" ? title.replace(" ", "\n") : title;
@@ -125,6 +126,7 @@ export default function EmailGate({
   const handleSend = async () => {
     if (!email.trim() || isSubmitting) return;
     setIsSubmitting(true);
+    trackLead({ archetype: archetypeKey });
     try {
       await subscribeToMailerLite({ email, archetype: archetypeKey });
     } catch {

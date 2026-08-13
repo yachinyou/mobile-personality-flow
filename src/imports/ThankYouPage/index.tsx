@@ -5,7 +5,7 @@ function Frame2() {
   return (
     <div className="[word-break:break-word] content-stretch flex flex-col font-['Poppins:Regular',sans-serif] gap-[24px] items-start not-italic relative shrink-0 text-[#392c68] text-left w-full">
       <p className="leading-[36px] relative shrink-0 text-[28px] w-full">Your reading is on its way.</p>
-      <p className="leading-[normal] relative shrink-0 text-[16px] w-full">Check your inbox in the next few minutes (and the spam folder, just in case, then rescue it).</p>
+      <p className="leading-[normal] relative shrink-0 text-[16px] w-full">{`It should be in your inbox within the next hour or so (and the spam folder, just in case, then rescue it!)`}</p>
     </div>
   );
 }

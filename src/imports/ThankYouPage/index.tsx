@@ -10,6 +10,26 @@ function Frame2() {
   );
 }
 
+function Frame5() {
+  return (
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
+      <p className="[word-break:break-word] font-['Poppins:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[#392c68] text-[18px] text-left w-full">
+        {`If you never received it, give me a shout out here `}
+        <a
+          href="https://www.instagram.com/yachinyou.art/"
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => event.stopPropagation()}
+          className="underline"
+        >
+          @yachinyou.art
+        </a>
+        {` and I'll be right with you!`}
+      </p>
+    </div>
+  );
+}
+
 function Frame4({ archetypeName }: { archetypeName: string }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full">
@@ -28,7 +48,7 @@ function Frame({ onClick, copied }: { onClick: (event: React.MouseEvent) => void
       <div className="flex flex-row items-center justify-center size-full">
         <div className="content-stretch flex items-center justify-center px-[10px] py-[16px] relative size-full">
           <p className="[word-break:break-word] font-['Serafina:Regular',sans-serif] leading-[normal] not-italic relative shrink-0 text-[32px] text-center text-white whitespace-nowrap">
-            {copied ? "Copied!" : "Share Quiz"}
+            {copied ? "Link copied!" : "Share Quiz"}
           </p>
         </div>
       </div>
@@ -47,6 +67,7 @@ function Frame1({
 }) {
   return (
     <div className="content-stretch flex flex-col gap-[24px] items-start relative shrink-0 w-full">
+      <Frame5 />
       <Frame4 archetypeName={archetypeName} />
       <Frame onClick={onShare} copied={copied} />
     </div>

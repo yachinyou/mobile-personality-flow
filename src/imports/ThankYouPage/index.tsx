@@ -106,12 +106,12 @@ export default function ThankYouPage({ archetypeName = "The Iceberg" }: { archet
   };
 
   return (
-    <a className="block cursor-pointer relative size-full" data-name="thank you page">
+    <div className="block relative size-full" data-name="thank you page">
       <div aria-hidden className="absolute inset-0 pointer-events-none">
         <div className="absolute bg-white inset-0" />
         <img alt="" className="absolute max-w-none object-cover opacity-60 size-full" src={imgThankYouPage} />
       </div>
       <Frame3 archetypeName={archetypeName} onShare={handleShare} copied={copied} />
-    </a>
+    </div>
   );
 }

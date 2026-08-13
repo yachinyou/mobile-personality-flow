@@ -9,8 +9,6 @@ import Q5 from "@/imports/Q5";
 import TransitionOverlay from "@/imports/Transition";
 import EmailGate from "@/imports/EmailGate";
 import ThankYouPage from "@/imports/ThankYouPage";
-import ReadingImageForSharing from "@/imports/ReadingImageForSharing";
-import Email from "@/imports/Email";
 
 type Screen =
   | "igad"
@@ -20,9 +18,7 @@ type Screen =
   | "q4"
   | "q5"
   | "emailgate"
-  | "thankyou"
-  | "sharing"
-  | "email";
+  | "thankyou";
 
 type OverlayVariant = "veil" | "calculating";
 
@@ -157,29 +153,7 @@ export default function App() {
   if (screen === "thankyou") {
     return wrapScreen(
       <div style={{ position: "absolute", inset: 0, overflowY: "auto" }}>
-        <div onClick={go("sharing")} style={{ cursor: "pointer" }}>
-          <ThankYouPage archetypeName={archetypeName} />
-        </div>
-      </div>
-    );
-  }
-
-  if (screen === "sharing") {
-    return wrapScreen(
-      <div style={{ position: "absolute", inset: 0, overflowY: "auto" }}>
-        <div onClick={go("email")} style={{ cursor: "pointer" }}>
-          <ReadingImageForSharing archetypeName={archetypeName} />
-        </div>
-      </div>
-    );
-  }
-
-  if (screen === "email") {
-    return wrapScreen(
-      <div style={{ position: "absolute", inset: 0, overflowY: "auto" }}>
-        <div onClick={go("igad")} style={{ cursor: "pointer" }}>
-          <Email archetypeName={archetypeName} />
-        </div>
+        <ThankYouPage archetypeName={archetypeName} />
       </div>
     );
   }
